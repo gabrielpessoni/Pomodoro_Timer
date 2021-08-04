@@ -32,16 +32,21 @@
 
         function startCounter(){
             counterInterval = setInterval( () => {
-                if(seconds === 0){
-                    if(minutes === 0) return clearInterval(counterInterval);
+                const timeOver = !seconds && !minutes;
+                const secondsOver = !seconds;
 
+                if(timeOver)return clearInterval(counterInterval);
+
+                if(secondsOver) {
                     seconds = 59;
                     --minutes;
-                } else {
-                    --seconds;
+                    updateCounterEl();
+                    return;
                 }
 
+                --seconds; 
                 updateCounterEl();
+
             }, 1000);
         }
 
